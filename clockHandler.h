@@ -21,3 +21,22 @@ void clockHandler(){
         hour_clock = 0;
     }
 }
+
+
+void setupTimerButton(){
+    cli();
+    TCCR1A = 0;
+    TCCR1B = 0;
+    TCNT1  = 0;
+    // set compare match register for 1hz increments
+    OCR1A = 15624;
+    // turn on CTC mode
+    TCCR1B |= (1 << WGM12);
+    TCCR1B |= (1 << CS12) | (1 << CS10);  // 1024 
+    TIMSK1 |= (1 << OCIE1A);
+    sei();
+}
+
+ISR(TIMER1_COMPA_vect){
+    clockHandler();
+}

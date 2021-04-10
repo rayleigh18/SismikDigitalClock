@@ -24,6 +24,8 @@ unsigned int stateA = 0, stateB = 0;
 
 unsigned int countA = 0, countB = 0;
 
+
+
 int buttonHandler(){
     buttonA = digitalRead(PIN_BUTTON_A);
     buttonB = digitalRead(PIN_BUTTON_B);
