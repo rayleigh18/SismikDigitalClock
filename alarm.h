@@ -5,17 +5,10 @@
 #include "clockHandler.h"
 bool isAlarmSet = 0;
 bool inAlarm = 0;
-int stateAlarm = 99;
+int stateAlarm = 1;
 int hourAlarm=0, minAlarm=0, secAlarm=0, dayAlarm = 0;
 
 bool settingAlarm(){ // if set pressed
-    if (inAlarm == 0){
-        inAlarm = 1;
-        stateAlarm = NONE_SET;
-        hourAlarm = 0;
-        minAlarm = 0;
-        secAlarm = 0;
-    }
     stateAlarm += 1;
     if (stateAlarm > 3){
         isAlarmSet = 1;

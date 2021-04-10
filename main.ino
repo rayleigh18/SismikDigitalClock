@@ -3,8 +3,10 @@
 #include "buttonHandler.h"
 #include "handleState.h"
 #include "7seg.h"
+#include "interruptFunc.h"
 unsigned long timeButt = 0;
 unsigned long timePrint = 0;
+unsigned long time7Seg = 0;
 
 int stateButton = UNDEFINED;
 void setup() {
@@ -24,5 +26,12 @@ void loop() {
     handleState(stateButton);
     timeButt = millis();
   }
-  onAllDigit(1,2,3,4);
+  if (millis()- time7Seg > 16){
+    onAllDigit(*num1/10,*num1%10,*num2/10,*num2%10);
+    time7Seg = millis();
+    Serial.println(day_clock_temp);
+  }
+    
+
+  
 }

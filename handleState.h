@@ -3,23 +3,133 @@
 
 #include "buttonHandler.h"
 #include "stateAll.h"
+#include "clockHandler.h"
+#include "alarm.h"
+#include "stopwatch.h"
+void handleMode();
+void handleSet();
+void handleUp();
+void handleDown();
 
 void handleState(int state){
     if (state == MODE_EVT){
-        Serial.println("M");
+        handleMode();
     }
     else if (state == UP_EVT){
-        Serial.println("U");
+        handleUp();
     }
     else if (state == DOWN_EVT){
-        Serial.println("D");
+        handleDown();
     }
     else if (state == SET_EVT){
-        Serial.println("S");
+        handleSet();
     }
 }
-int modeNow = MIN_SEC;
+
 void handleMode(){
+    if (modeNow != SETTING_TIME && modeNow != SETTING_ALARM && modeNow != SETTING_STOPWATCH){
+        modeNow += 1;
+    }
+    else{
+        if (modeNow == SETTING_TIME){
+            if (stateClock == 0){
+                modeNow += 1;
+            }
+        }
+        else if (modeNow == SETTING_ALARM){
+            if (stateAlarm == HOUR_SET){
+                modeNow += 1;
+            }
+            else{
+                return;
+            }
+        }
+        else if (modeNow == SETTING_STOPWATCH){
+            if (stateStopwatch == HOUR_SET){
+                modeNow += 1;
+            }
+            else{
+                return;
+            }
+        }
+
+    }
+
+    modeNow %= 7;
+
+    if (modeNow == MIN_SEC){
+        num1 = &min_clock;
+        num2 = &sec_clock;
+    }
+    else if (modeNow == HOUR_DATE){
+        num1 = &day_clock;
+        num2 = &hour_clock;
+    }
+    else if (modeNow == SETTING_TIME){
+        stateClock = DATE_SET;
+        num1 = &day_clock_temp;
+        num2 = &hour_clock_temp;
+    }
+    else if (modeNow == SETTING_ALARM){
+        stateAlarm = HOUR_SET;
+        num1 = &hourAlarm;
+        num2 = &minAlarm;
+    }
+    else if (modeNow == SETTING_STOPWATCH){
+        stateStopwatch = HOUR_SET;
+        num1 = &hourStopwatch;
+        num2 = &minStopwatch;
+    }
+    else if (modeNow == SEE_STOPWATCH_HOUR){
+        num1 = &diff_hour;
+        num2 = &diff_min;
+    }
+    else if (modeNow == SEE_STOPWATCH_SEC){
+        num1 = &diff_min;
+        num2 = &diff_sec;
+    }
     
+}
+
+void handleSet(){
+    if (modeNow == SETTING_TIME){
+        if (settingClock()){
+            handleMode();
+        }
+    }
+    else if (modeNow == SETTING_ALARM){
+        if (settingAlarm()){
+            handleMode();
+        }
+    }
+    else if (modeNow == SETTING_STOPWATCH){
+        if (settingStopwatch()){
+            handleMode();
+        }
+    }
+}
+
+void handleUp(){
+    if (modeNow == SETTING_TIME){
+        upClock();
+    }
+    else if (modeNow == SETTING_ALARM){
+        upAlarm();
+    }
+    else if (modeNow == SETTING_STOPWATCH){
+        upStopwatch();
+    }
+}
+
+void handleDown(){
+    if (modeNow == SETTING_TIME){
+        downClock();
+    }
+    else if (modeNow == SETTING_ALARM){
+        downAlarm();
+    }
+    else if (modeNow == SETTING_STOPWATCH){
+        downStopwatch();
+    }
 }
 #endif

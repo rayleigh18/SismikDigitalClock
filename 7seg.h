@@ -51,7 +51,7 @@ void setDigit(int pinSeg, int numValue){
     digitalWrite(pin_7Seg[i], getSegmentVal(num_array[numValue][i]));
   }
 
-  delay(2);
+  delay(1);
   for (int i = 0; i < TOTAL_DIGIT; i++){
     digitalWrite(pin_Digit[i], getDigitVal(0));
   }

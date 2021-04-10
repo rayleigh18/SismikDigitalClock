@@ -5,17 +5,10 @@
 #include "clockHandler.h"
 bool isStopwatchSet = 0;
 bool inStopwatch = 0;
-int stateStopwatch = 99;
+int stateStopwatch = HOUR_SET;
 int hourStopwatch=0, minStopwatch=0, secStopwatch=0, dayStopwatch = 0;
 
 bool settingStopwatch(){ // if set pressed
-    if (inStopwatch == 0){
-        inStopwatch = 1;
-        stateStopwatch = NONE_SET;
-        hourStopwatch = 0;
-        minStopwatch = 0;
-        secStopwatch = 0;
-    }
     stateStopwatch += 1;
     if (stateStopwatch > 3){
         isStopwatchSet = 1;
@@ -25,6 +18,7 @@ bool settingStopwatch(){ // if set pressed
         minStopwatch += ((int)secStopwatch/60)+min_clock;
         hourStopwatch += ((int)minStopwatch/24)+hour_clock;
         dayStopwatch = day_clock + ((int)hourStopwatch/24);
+        dayStopwatch %= 31;
 
         secStopwatch %= 60;
         minStopwatch %= 60;
@@ -63,4 +57,5 @@ void downStopwatch(){ // if up pressed
         secStopwatch %= 60;
     }
 }
+
 #endif
