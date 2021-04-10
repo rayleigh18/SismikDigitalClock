@@ -2,7 +2,7 @@
 #define BUTTON_HANDLER_H
 #include "pinConfiguration.h"
 
-#define DEBOUNCE_PERIOD 5 // 5*20ms = 100ms
+#define DEBOUNCE_PERIOD 2 // 5*20ms = 100ms
 #define SHORT_PERIOD 25 // 25*20ms = 500ms
 #define LONG_PERIOD 250 // 250*20ms = 5s
 
@@ -41,6 +41,7 @@ int buttonHandler(){
         else if (countA < LONG_PERIOD){
             stateA = LONG;
         }
+        countA = 0;
     }
     else{
         countA += 1;
@@ -59,6 +60,7 @@ int buttonHandler(){
         else if (countB < LONG_PERIOD){
             stateB = LONG;
         }
+        countB = 0;
     }
     else{
         countB += 1;
