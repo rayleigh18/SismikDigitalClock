@@ -22,5 +22,4 @@ int modeNow = HOUR_DATE;
 unsigned int * num1;
 unsigned int * num2;
 
-int diff_hour, diff_min, diff_sec;
 #endif

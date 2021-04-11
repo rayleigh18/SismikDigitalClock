@@ -4,4 +4,6 @@
 #define PIN_BUTTON_A A0
 #define PIN_BUTTON_B A1
 
+#define PIN_ALARM A4
+
 #endif

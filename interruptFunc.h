@@ -18,18 +18,50 @@ void setupTimerButton(){
     TIMSK1 |= (1 << OCIE1A);
     sei();
 
+    // for first time, initiaote
     num1 = &day_clock;
     num2 = &hour_clock;
 }
 
 ISR(TIMER1_COMPA_vect){
     clockHandler();
-    if (hourAlarm = hour_clock && minAlarm == min_clock && secAlarm == sec_clock){
+    if (hourAlarm == hour_clock && minAlarm == min_clock && secAlarm == sec_clock && isAlarmSet){
         isAlarmOn = 1;
     }
-    else if (hourStopwatch = hour_clock && minStopwatch == min_clock && secStopwatch == sec_clock){
+    else if (dayStopwatch == day_clock && hourStopwatch == hour_clock && minStopwatch == min_clock && secStopwatch == sec_clock && isStopwatchSet){
         isAlarmOn = 1;
+        isStopwatchSet = 0;
     }
+    if (isStopwatchSet){
+        if (dayStopwatch != day_clock){
+            hourCount = 24 + hourStopwatch - hour_clock;
+        }
+        else hourCount = hourStopwatch - hour_clock;
+
+        if (minStopwatch < min_clock){
+            hourCount -= 1;
+            minCount = 60 + minStopwatch - min_clock;
+        }
+        else {
+            minCount = minStopwatch - min_clock;
+        }
+
+        if (secStopwatch < sec_clock){
+            if (minCount == 0){
+                minCount = 59;
+                hourCount -= 1;
+            }
+            secCount = 60 + secStopwatch - sec_clock;
+        }
+        else {
+            secCount = secStopwatch - sec_clock;
+        }
+    }else{
+        hourCount = 0;
+        minCount = 0;
+        secCount = 0;
+    }
+
     
 }
 

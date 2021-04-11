@@ -11,11 +11,16 @@ void handleSet();
 void handleUp();
 void handleDown();
 
+int zero = 0;
+
 void handleState(int state){
     if (state == MODE_EVT){
         handleMode();
     }
     else if (state == UP_EVT){
+        if (isAlarmOn){
+            isAlarmOn = 0;
+        }
         handleUp();
     }
     else if (state == DOWN_EVT){
@@ -32,12 +37,15 @@ void handleMode(){
     }
     else{
         if (modeNow == SETTING_TIME){
-            if (stateClock == 0){
+            if (stateClock == 0 || stateClock > 3){
                 modeNow += 1;
+            }
+            else{
+                return;
             }
         }
         else if (modeNow == SETTING_ALARM){
-            if (stateAlarm == HOUR_SET){
+            if (stateAlarm == HOUR_SET|| stateAlarm > 3){
                 modeNow += 1;
             }
             else{
@@ -45,7 +53,7 @@ void handleMode(){
             }
         }
         else if (modeNow == SETTING_STOPWATCH){
-            if (stateStopwatch == HOUR_SET){
+            if (stateStopwatch == HOUR_SET|| stateStopwatch > 3){
                 modeNow += 1;
             }
             else{
@@ -81,12 +89,14 @@ void handleMode(){
         num2 = &minStopwatch;
     }
     else if (modeNow == SEE_STOPWATCH_HOUR){
-        num1 = &diff_hour;
-        num2 = &diff_min;
+        num1 = &hourCount;
+        num2 = &minCount;
+        
     }
     else if (modeNow == SEE_STOPWATCH_SEC){
-        num1 = &diff_min;
-        num2 = &diff_sec;
+        num1 = &minCount;
+        num2 = &secCount;
+        
     }
     
 }
