@@ -1,4 +1,4 @@
-
+// Using Common Catode
 #ifdef COMMON_ANODE
   #define SEG_ON 0
   #define DIG_ON 1
@@ -8,11 +8,17 @@
 #endif
 
 #include <TimerOne.h>
-bool getDigitVal(bool value){
+
+/*
+  For 7 segment, all digit and segment using 1 for on
+  for output to pin, use getDigitVal and getSegmentVal that out
+  the logic that suit the 4 digit display
+*/
+bool getDigitVal(bool value){ // extractor for output digit
   return !(value^DIG_ON);
 }
 
-bool getSegmentVal(bool value){
+bool getSegmentVal(bool value){ // extractor for input digit
   return !(value^SEG_ON);
 }
 int pin_7Seg[8] = {3,6,12,10,9,4,13,11}; // 7 segment pin
@@ -43,10 +49,12 @@ void setupPin7Seg(){
   }
 }
 void setDigit(int pinSeg, int numValue){
+  // set digit pin
   for (int i = 0; i < TOTAL_DIGIT; i++){
     digitalWrite(pin_Digit[i], getDigitVal(pin_Digit[i]==pinSeg));
   }
-
+  
+  // set segment pin
   for (int i = 0; i < 7; i++){
     digitalWrite(pin_7Seg[i], getSegmentVal(num_array[numValue][i]));
   }
@@ -63,6 +71,7 @@ void onAllDigit(int num1, int num2, int num3, int num4){
   num3 = num3%10;
   num4 = num4%10;
 
+  // set digit for all system
   setDigit(pin_Digit[0], num1);
   setDigit(pin_Digit[1], num2);
   setDigit(pin_Digit[2], num3);

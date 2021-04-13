@@ -21,8 +21,11 @@ void clockHandler(){
 
     if (hour_clock == 24){
         day_clock += 1;
+        day_clock %= 31;
+        day_clock += 1;
         hour_clock = 0;
     }
+    
 }
 
 
@@ -99,10 +102,6 @@ void downClock(){ // if up pressed
         day_clock_temp += 31;
         day_clock_temp %=31;
     }
-}
-
-void setupClock(){
-
 }
 
 #endif

@@ -64,7 +64,7 @@ void handleMode(){
     }
 
     modeNow %= 7;
-
+    
     if (modeNow == MIN_SEC){
         num1 = &min_clock;
         num2 = &sec_clock;

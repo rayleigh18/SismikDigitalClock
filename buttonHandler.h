@@ -12,6 +12,7 @@
 #define DOWN_EVT 3
 #define UNDEFINED_EVT 4
 
+//  state button
 #define ZERO 0
 #define SHORT 1
 #define LONG 2
@@ -43,7 +44,7 @@ int buttonHandler(){
         }
         countA = 0;
     }
-    else{
+    else{ // button is pressed
         countA += 1;
         countA = countA % LONG_PERIOD;
         stateA = UNDEFINED;
@@ -62,7 +63,7 @@ int buttonHandler(){
         }
         countB = 0;
     }
-    else{
+    else{ // button is Pressed
         countB += 1;
         countB = countB % LONG_PERIOD;
         stateB = UNDEFINED;

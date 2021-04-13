@@ -18,13 +18,13 @@ void setupTimerButton(){
     TIMSK1 |= (1 << OCIE1A);
     sei();
 
-    // for first time, initiaote
-    num1 = &day_clock;
-    num2 = &hour_clock;
+
 }
 
 ISR(TIMER1_COMPA_vect){
     clockHandler();
+
+    // checking alarm
     if (hourAlarm == hour_clock && minAlarm == min_clock && secAlarm == sec_clock && isAlarmSet){
         isAlarmOn = 1;
     }
@@ -32,6 +32,8 @@ ISR(TIMER1_COMPA_vect){
         isAlarmOn = 1;
         isStopwatchSet = 0;
     }
+
+    // countdown stopwatch
     if (isStopwatchSet){
         if (dayStopwatch != day_clock){
             hourCount = 24 + hourStopwatch - hour_clock;

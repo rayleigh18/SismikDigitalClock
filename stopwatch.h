@@ -22,8 +22,9 @@ bool settingStopwatch(){ // if set pressed
         secStopwatch += sec_clock;
         minStopwatch += ((int)secStopwatch/60)+min_clock;
         hourStopwatch += ((int)minStopwatch/24)+hour_clock;
-        dayStopwatch = day_clock + ((int)hourStopwatch/24);
+        dayStopwatch = day_clock - 1 + ((int)hourStopwatch/24);
         dayStopwatch %= 31;
+        dayStopwatch += 1;
 
         secStopwatch %= 60;
         minStopwatch %= 60;
