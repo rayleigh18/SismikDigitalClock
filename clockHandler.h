@@ -78,6 +78,7 @@ void upClock(){ // if up pressed
     else{
         day_clock_temp += 1;
         day_clock_temp %= 31;
+        day_clock_temp += 1;
     }
 }
 
@@ -101,6 +102,7 @@ void downClock(){ // if up pressed
         day_clock_temp -= 1;
         day_clock_temp += 31;
         day_clock_temp %=31;
+        day_clock_temp += 1;
     }
 }
 
