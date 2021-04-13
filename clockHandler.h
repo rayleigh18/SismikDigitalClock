@@ -4,7 +4,7 @@
 int sec_clock = 0;
 int min_clock = 0;
 int hour_clock = 0;
-int day_clock = 0;
+int day_clock = 1;
 
 // called every 1 second
 void clockHandler(){
@@ -20,7 +20,6 @@ void clockHandler(){
     }
 
     if (hour_clock == 24){
-        day_clock += 1;
         day_clock %= 31;
         day_clock += 1;
         hour_clock = 0;
@@ -33,7 +32,7 @@ void clockHandler(){
 int sec_clock_temp = 0;
 int min_clock_temp = 0;
 int hour_clock_temp = 0;
-int day_clock_temp = 0;
+int day_clock_temp = 1;
 bool isClockSet = 0;
 bool inClock = 0;
 int stateClock = 0;
@@ -76,7 +75,6 @@ void upClock(){ // if up pressed
         sec_clock_temp %= 60;
     }
     else{
-        day_clock_temp += 1;
         day_clock_temp %= 31;
         day_clock_temp += 1;
     }
@@ -99,7 +97,7 @@ void downClock(){ // if up pressed
         sec_clock_temp %= 60;
     }
     else{
-        day_clock_temp -= 1;
+        day_clock_temp -= 2;
         day_clock_temp += 31;
         day_clock_temp %=31;
         day_clock_temp += 1;

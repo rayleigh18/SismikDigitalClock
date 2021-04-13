@@ -6,7 +6,7 @@
 bool isStopwatchSet = 0;
 bool inStopwatch = 0;
 int stateStopwatch = HOUR_SET;
-int hourStopwatch=0, minStopwatch=0, secStopwatch=0, dayStopwatch = 0;
+int hourStopwatch=0, minStopwatch=0, secStopwatch=0, dayStopwatch = 1;
 int hourCount = 0, minCount = 0, secCount = 0;
 
 bool settingStopwatch(){ // if set pressed
